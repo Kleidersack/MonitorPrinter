@@ -44,7 +44,6 @@ namespace MonitorPrinter
 
         private void Form_Load(object sender, EventArgs e)
         {
-            listBox1.DataSource = this.messages;
             foreach (PrinterQueueWatch.PrinterInformation pi in new PrinterQueueWatch.PrinterInformationCollection())
             {
                 checkedListBox1.Items.Add(pi.PrinterName, Properties.Settings.Default.printersToWatch.Contains(pi.PrinterName));
@@ -58,23 +57,37 @@ namespace MonitorPrinter
             {
                 this.printerMonitorComponent.AddPrinter(deviceName);
                 Properties.Settings.Default.printersToWatch.Add(deviceName);
+                this.messages.Add($"Added printer \"{deviceName}\" to the watch list.");
             }
             else
             {
                 this.printerMonitorComponent.RemovePrinter((string)checkedListBox1.Items[e.Index]);
                 Properties.Settings.Default.printersToWatch.Remove(deviceName);
+                this.messages.Add($"Removed printer \"{deviceName}\" from the watch list.");
             }
             Properties.Settings.Default.Save();
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.printerMonitorComponent.Disconnect();
             Properties.Settings.Default.Save();
         }
 
+        delegate void printerMonitorComponent_JobAddedDelegate(object sender, PrinterQueueWatch.PrintJobEventArgs e);
         private void printerMonitorComponent_JobAdded(object sender, PrinterQueueWatch.PrintJobEventArgs e)
         {
+            if (listBox1.InvokeRequired)
+            {
+                listBox1.Invoke((printerMonitorComponent_JobAddedDelegate)delegate (object origSender, PrinterQueueWatch.PrintJobEventArgs args)
+                {
+                    printerMonitorComponent_JobAdded(origSender, args);
+                },
+                new object[] { sender, e }
+                );
+                return;
+            }
+
             try
             {
                 soundToPlayPlayer.Play();
@@ -99,6 +112,21 @@ namespace MonitorPrinter
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
             soundToPlay = openFileToPlayDialog.FileName;
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            listBox1.DataSource = this.messages;
+        }
+
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.WindowState = this.WindowState == FormWindowState.Normal ? FormWindowState.Minimized : FormWindowState.Normal;
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            this.ShowInTaskbar = this.WindowState != FormWindowState.Minimized;
         }
     }
 }
