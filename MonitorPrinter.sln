@@ -1,10 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29728.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorPrinter", "MonitorPrinter\MonitorPrinter.csproj", "{E7967ABF-3102-47DA-8112-53F223A399A0}"
-EndProject
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2109140A-B8FA-4A7B-9470-6C1D96648B22}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,10 +20,6 @@ Global
 		{E7967ABF-3102-47DA-8112-53F223A399A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7967ABF-3102-47DA-8112-53F223A399A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7967ABF-3102-47DA-8112-53F223A399A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B902455-F952-40FC-833B-1AE0B3C1756D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B902455-F952-40FC-833B-1AE0B3C1756D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B902455-F952-40FC-833B-1AE0B3C1756D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B902455-F952-40FC-833B-1AE0B3C1756D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
